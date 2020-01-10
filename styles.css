@@ -13,16 +13,21 @@ body {
   align-items: center;
   padding: 20px;
   overflow: hidden;
-  background: linear-gradient(#CB356B, #BD3F32);
+  /* background: linear-gradient(#CB356B, #BD3F32); */
+  background: url('img/bg/fancy-pants.jpg') center center/cover no-repeat
 }
 
 .app {
   background: #fff;
   padding: 20px;
-  width: 600px;
+  width: 1100px;
   margin: 0 auto;
   box-shadow: 0 1px 30px 0 rgba(0,0,0,0.14), 0 0px 0px 0 rgba(0,0,0,.12), 0 0px 0px 0px rgba(0,0,0,.3);
   border-radius: 10px;
+}
+
+.descr {
+  font-size: 1.2rem
 }
 
 .app__header {
@@ -47,7 +52,6 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  
 }
 
 .input label {
@@ -56,9 +60,10 @@ body {
   margin: 10px 10px;
   color: #acacac;
   font-family: GothamPro,sans-serif;
-  font-size: .8rem;
+  font-size: .9rem;
   font-weight: normal;
   line-height: 1.2rem;
+  color: blue;
 }
 
 .input input {
@@ -85,8 +90,8 @@ body {
   border: 1px solid #ccc;
   background: #ccc;
   min-height: 300px;
-  min-width: 300px;
-  max-width: 300px;
+  min-width: 50%;
+  max-width: 50%;
   max-height: 300px;
   border-radius: 10px;
 }
@@ -94,8 +99,8 @@ body {
 .bigGame {
   border: 5px solid blue;
   background: #ccc;
-  min-width: 600px;
-  max-width: 600px;
+  min-width: 80%;
+  max-width: 80%;
   box-shadow: 0px 0px 10px violet;
   border-radius: 10px;
 }

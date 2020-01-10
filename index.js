@@ -72,11 +72,9 @@ function setGameSize(){
     }
 }
 
-
 function gameResult() {
     $result.textContent = score.toString()
 }
-
 
 function handleBoxClick(event) {
     if(!isGameStarted){
@@ -86,7 +84,6 @@ function handleBoxClick(event) {
         score++
         renderBox ()
     }
-                
 }
 
 function renderBox () {
@@ -113,5 +110,5 @@ function getRandom (min, max) {
 }
 
 function generateColor() {
-    return '#' + Math.floor(Math.random()*16777215).toString(16)
+    return '#' + Math.floor(Math.random()*15625000).toString(16)
   }
