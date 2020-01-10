@@ -5,6 +5,7 @@ var $result = document.querySelector('#result')
 var $timeHeader = document.querySelector('#time-header')
 var $resultHeader = document.querySelector('#result-header')
 var $gameTime = document.querySelector('#game-time')
+var $gameSize = document.querySelector('#game-size')
 
 var score = 0
 var isGameStarted = false
@@ -12,6 +13,7 @@ var isGameStarted = false
 $start.addEventListener('click', startGame)
 $game.addEventListener('click', handleBoxClick)
 $gameTime.addEventListener('input', setGameTime)
+$gameSize.addEventListener('input', setGameSize)
 
 function show ($el){
     $el.classList.remove('hide')
@@ -60,6 +62,14 @@ function setGameTime(){
     $time.textContent = gameDuration.toFixed(1)
     show($timeHeader)
     hide($resultHeader)
+}
+
+function setGameSize(){
+    if($gameSize.checked){
+        $game.classList.add('bigGame')
+    } else {
+        $game.classList.remove('bigGame')
+    }
 }
 
 
