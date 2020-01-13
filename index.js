@@ -1,40 +1,39 @@
-var $start = document.querySelector('#start')
-var $game = document.querySelector('#game')
-var $time = document.querySelector('#time')
-var $result = document.querySelector('#result')
-var $timeHeader = document.querySelector('#time-header')
-var $resultHeader = document.querySelector('#result-header')
-var $gameTime = document.querySelector('#game-time')
-var $gameSize = document.querySelector('#game-size')
+const $start = document.querySelector('#start')
+const $game = document.querySelector('#game')
+const $time = document.querySelector('#time')
+const $result = document.querySelector('#result')
+const $timeHeader = document.querySelector('#time-header')
+const $resultHeader = document.querySelector('#result-header')
+const $gameTime = document.querySelector('#game-time')
+const $gameSize = document.querySelector('#game-size')
+const $targetSize = document.querySelector('#target-size')
 
 //добавить кликов всего, кликов мимо квадрата цели
 
-var score = 0
-var isGameStarted = false
+let score = 0
+let isGameStarted = false
 
-$start.addEventListener('click', startGame)
-$game.addEventListener('click', handleBoxClick)
-$gameTime.addEventListener('input', setGameTime)
-$gameSize.addEventListener('input', setGameSize)
 
-function show ($el){
+const show = $el => {
     $el.classList.remove('hide')
 }
 
-function hide ($el){
+const hide = $el => {
     $el.classList.add('hide')
 }
 
-function startGame () {
+const startGame = () => {
     score = 0
     setGameTime()
     $gameTime.setAttribute('disabled', 'true')
+    $gameSize.setAttribute('disabled', 'true')
+    $targetSize.setAttribute('disabled', 'true')
     isGameStarted = true
     hide($start)
     $game.style.backgroundColor = '#fff'
 
-    var interval = setInterval(function(){
-        var time = parseFloat($time.textContent)
+    const interval = setInterval(function(){
+        const time = parseFloat($time.textContent)
 
         if(time <= 0){
             clearInterval(interval)
@@ -47,7 +46,7 @@ function startGame () {
     renderBox()
 }
 
-function endGame(){
+const endGame = () => {
     isGameStarted = false
     gameResult()
     show($start)
@@ -56,17 +55,19 @@ function endGame(){
     hide($timeHeader)
     show($resultHeader)
     $gameTime.removeAttribute('disabled')
+    $gameSize.removeAttribute('disabled')
+    $targetSize.removeAttribute('disabled')
     // $resultHeader.innerHTML = 'Ваш результат:' + score
 }
 
-function setGameTime(){
-    var gameDuration = +$gameTime.value //+ впереди приводит значение к числу, либо метод parseInt
+const setGameTime = () =>{
+    let gameDuration = +$gameTime.value //+ впереди приводит значение к числу, либо метод parseInt
     $time.textContent = gameDuration.toFixed(1)
     show($timeHeader)
     hide($resultHeader)
 }
 
-function setGameSize(){
+const setGameSize = () =>{
     if($gameSize.checked){
         $game.classList.add('bigGame')
     } else {
@@ -74,11 +75,11 @@ function setGameSize(){
     }
 }
 
-function gameResult() {
+const gameResult = () => {
     $result.textContent = score.toString()
 }
 
-function handleBoxClick(event) {
+const handleBoxClick = (event) => {
     if(!isGameStarted){
         return
     }
@@ -88,21 +89,33 @@ function handleBoxClick(event) {
     }
 }
 
-function getRandom (min, max) {
+const getRandom =  (min, max) => {
     return Math.floor(Math.random() * (max - min) + min) 
 }
 
-function generateColor() {
+let randomSize = getRandom (30, 60)
+const setTargetSize = () => {
+    if($targetSize.checked){
+        randomSize = getRandom (20, 20)
+        console.log('Размер целей изменен');
+    } else {
+        randomSize = getRandom (30, 60)
+        console.log('Размер целей по умолчанию');
+    }
+}
+
+const generateColor = () => {
     return '#' + Math.floor(Math.random()*15625000).toString(16)
 }
 
-function renderBox () {
+const renderBox =  () => {
+
     $game.innerHTML = ''
-    var box = document.createElement('div')
-    var boxSize = getRandom (20, 80)
-    var gameSize = $game.getBoundingClientRect()
-    var maxTop = gameSize.height - boxSize
-    var maxLeft = gameSize.width - boxSize
+    const box = document.createElement('div')
+    let boxSize = randomSize 
+    let gameSize = $game.getBoundingClientRect()
+    let maxTop = gameSize.height - boxSize
+    let maxLeft = gameSize.width - boxSize
     
     box.style.height = box.style.width = boxSize + 'px'
     box.style.position = 'absolute'
@@ -118,3 +131,8 @@ function renderBox () {
     $game.insertAdjacentElement('afterbegin', box)  //вставляем box  внутрь $game
 }
 
+$start.addEventListener('click', startGame)
+$game.addEventListener('click', handleBoxClick)
+$gameTime.addEventListener('input', setGameTime)
+$gameSize.addEventListener('input', setGameSize)
+$targetSize.addEventListener('input', setTargetSize)
