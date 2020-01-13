@@ -7,6 +7,8 @@ var $resultHeader = document.querySelector('#result-header')
 var $gameTime = document.querySelector('#game-time')
 var $gameSize = document.querySelector('#game-size')
 
+//добавить кликов всего, кликов мимо квадрата цели
+
 var score = 0
 var isGameStarted = false
 
@@ -86,6 +88,14 @@ function handleBoxClick(event) {
     }
 }
 
+function getRandom (min, max) {
+    return Math.floor(Math.random() * (max - min) + min) 
+}
+
+function generateColor() {
+    return '#' + Math.floor(Math.random()*15625000).toString(16)
+}
+
 function renderBox () {
     $game.innerHTML = ''
     var box = document.createElement('div')
@@ -97,6 +107,9 @@ function renderBox () {
     box.style.height = box.style.width = boxSize + 'px'
     box.style.position = 'absolute'
     box.style.backgroundColor = generateColor()
+    if(box.style.backgroundColor == 'rgb(255, 255, 255)' || !box.style.backgroundColor){
+        box.style.backgroundColor =  'rgb(0, 83, 138)'
+    }
     box.style.top = getRandom(0, maxTop)  + 'px'
     box.style.left = getRandom(0, maxLeft) + 'px'
     box.style.cursor = 'pointer'
@@ -105,10 +118,3 @@ function renderBox () {
     $game.insertAdjacentElement('afterbegin', box)  //вставляем box  внутрь $game
 }
 
-function getRandom (min, max) {
-    return Math.floor(Math.random() * (max - min) + min) 
-}
-
-function generateColor() {
-    return '#' + Math.floor(Math.random()*15625000).toString(16)
-  }
